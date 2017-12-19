@@ -7,6 +7,15 @@ const laneSchema = new Schema({
   id: { type: 'String', required: true, unique: true },
 });
 
+
+function populateNotes(next) {
+  this.populate('notes');
+  next();
+}
+
+laneSchema.pre('find', populateNotes);
+laneSchema.pre('findOne', populateNotes);
+
 export default mongoose.model('Lane', laneSchema);
 
 
