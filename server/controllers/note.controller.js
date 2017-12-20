@@ -63,5 +63,4 @@ export function editNoteContent(req, res) {
       }
       res.json(updated);
     })
-  }
 }
