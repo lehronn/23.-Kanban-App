@@ -19,7 +19,7 @@ export function addLane(req, res) {
   });
 }
 
-export function getLane(req, res) {
+export function getLanes(req, res) {
   Lane.find().exec((err, lanes) => {
     if (err) {
       res.status(500).send(err);
