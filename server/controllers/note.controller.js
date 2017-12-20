@@ -28,3 +28,40 @@ export function addNote(req, res) {
       });
   });
 }
+
+export function deleteNote(req, res) {
+  Note.findOne({id: req.params.noteId}).exec((err, note) => {
+      if(err) {
+        res.status(500).send(err);
+      }
+
+      if(note) {
+        Lane.findOne({notes: note._id}).exec( (err, lane) => {
+          if(err) {
+            res.status(500).send(err);
+          }
+          lane.notes.pull(note);
+
+          lane.save();
+        });
+
+        res.status(200).send(note);
+      } else {
+        res.status(500).send(err);
+      }
+    })
+  }
+
+export function editNoteContent(req, res) {
+  const note = req.body;
+    if(!note.id || !note.task) {
+      res.status(403).end();
+    }
+    Note.findOneAndUpdate({id: note.id}, note, {new: true}, (err, updated) => {
+      if(err) {
+        res.status(500).send('error 500');
+      }
+      res.json(updated);
+    })
+  }
+}

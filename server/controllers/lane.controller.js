@@ -19,7 +19,7 @@ export function addLane(req, res) {
   });
 }
 
-export function getLanes(req, res) {
+export function getLane(req, res) {
   Lane.find().exec((err, lanes) => {
     if (err) {
       res.status(500).send(err);
@@ -28,6 +28,9 @@ export function getLanes(req, res) {
   });
 };
 
+// deleting lane with hook them delete notes from
+// this lane is in server/models/lane.js
+// czyli hak usuwa notatki z usuwanej właśnie linii
 export function deleteLane(req, res) {
   Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
     if (err) {
@@ -38,4 +41,19 @@ export function deleteLane(req, res) {
       res.status(200).end();
     });
   });
+}
+
+export function editLaneName(req, res) {
+  const lane = req.body;
+   if(!lane.id ) {
+     res.status(403).end();
+   }
+   // new: boolean if true method return modified document rather than original document.
+   // lanes is updated and parsed with .json method.
+   Lane.findOneAndUpdate({id: lane.id}, lane, {new: true}, (err, updatedlane) => {
+     if(err) {
+       res.status(500).send(err);
+     }
+     res.json(updatedlane);
+   })
 }
