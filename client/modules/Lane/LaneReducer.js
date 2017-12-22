@@ -29,10 +29,10 @@ export default function lanes(state = initialState, action) {
         return lane;
       });
 
-    case DELETE_NOTE: //jak to zrobić? .filter?
+    case DELETE_NOTE:
       return state.map(lane => {
         if (lane.id === action.laneId) {
-          const notes = [...lane.notes, action.note.id];
+          const notes = lane.notes.filter((noteId) => noteId == action.noteId);
           return { ...lane, notes };
         }
         return lane;
