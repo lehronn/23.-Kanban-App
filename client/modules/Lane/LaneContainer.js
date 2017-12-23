@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import Lane from './Lane';
 
+import { deleteLane, updateLane, editLane } from './LaneActions';
+import { createNoteRequest } from '../Note/NoteActions';
+
 
 // podpięcie wszystkich kreatorów akcji do propsów komponentu Lane.
 // Najpierw należy zaimportować wszystkie kreatory akcji linii oraz
@@ -20,7 +23,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   ...laneActions,
-  addNote: createNote,
+  editLane, deleteLane, updateLane, addNote: createNoteRequest,
 };
 
 export default connect(
