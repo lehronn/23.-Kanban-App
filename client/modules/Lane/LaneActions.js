@@ -3,6 +3,7 @@ import uuid from 'uuid';
 // Export Constants
 export const CREATE_LANE = 'CREATE_LANE';
 export const UPDATE_LANE = 'UPDATE_LANE';
+export const EDIT_LANE = 'EDIT_LANE';
 export const DELETE_LANE = 'DELETE_LANE';
 
 export function createLane(lane) {
@@ -22,10 +23,17 @@ export function updateLane(lane) {
   };
 }
 
+export function editLane(laneId) {
+  return {
+    type: EDIT_LANE,
+    id: laneId,
+  };
+}
+
 export function deleteLane(laneId) {
   return {
     type: DELETE_LANE,
-    laneId
+    laneId,
   };
 }
 // Export Actions

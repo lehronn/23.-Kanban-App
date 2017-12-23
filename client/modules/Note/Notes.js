@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Note from './Note';
+
 import Edit from '../../components/Edit';
 
 const Notes = ({ notes, laneId, editNote, onUpdate, deleteNote}) => {
@@ -26,6 +27,11 @@ const Notes = ({ notes, laneId, editNote, onUpdate, deleteNote}) => {
 };
 
 Notes.propTypes = {
+  deleteNote: PropTypes.func,
+  onUpdate: PropTypes.func,
+  laneId: PropTypes.string,
+  editNote: PropTypes.func,
+  editing: PropTypes.bool,
   notes: PropTypes.array,
 };
 
