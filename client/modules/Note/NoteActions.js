@@ -1,6 +1,9 @@
+import callApi from '../../util/apiCaller';
+
 // Export Constants
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const CREATE_NOTES = 'CREATE_NOTES';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 
@@ -18,6 +21,13 @@ export function createNoteRequest(note, laneId) {
       dispatch(createNote(noteResp, laneId));
     });
   };
+}
+
+export function createNotes(notesData) {
+  return {
+    type: CREATE_NOTES,
+    notes: notesData,
+  }
 }
 
 export function updateNote(note) {

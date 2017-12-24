@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Lanes from '../Lane/Lanes';
 import styles from './Kanban.css';
+import { fetchLanes } from '../Lane/LaneActions';
 
 import { createLaneRequest } from '../Lane/LaneActions';
 

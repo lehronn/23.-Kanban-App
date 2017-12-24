@@ -5,24 +5,28 @@ import Edit from '../../components/Edit';
 
 const Notes = ({ notes, laneId, editNote, onUpdate, deleteNote}) => {
   return (
-    <Note
-      id={note.id}
-      key={note.id}
-      editing={note.editing}
-    >
-      <Edit
+  <ul className="notes">
+    {notes.map((note, id) => 
+      <Note
+        id={note.id}
+        key={note.id}
         editing={note.editing}
-        value={note.task}
-        onValueClick={() => editNote(note.id)}
-        onUpdate={(task) => onUpdate({
-            ...note,
-            task,
-            editing: false,
-          }
-        )}
-        onDelete={() => deleteNote(note.id, laneId)}
-      />
-    </Note>
+      >
+        <Edit
+          editing={note.editing}
+          value={note.task}
+          onValueClick={() => editNote(note.id)}
+          onUpdate={(task) => onUpdate({
+              ...note,
+              task,
+              editing: false,
+            }
+          )}
+          onDelete={() => deleteNote(note.id, laneId)}
+        />
+      </Note>
+    )}
+  </ul>
   );
 };
 
