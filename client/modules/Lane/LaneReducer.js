@@ -35,7 +35,7 @@ export default function lanes(state = initialState, action) {
    case DELETE_LANE: {
      return omit(state, action.laneId);
    }
-   
+
    default:
      return state;
  }

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import NotesContainer from '../Note/NotesContainer';
+import NotesContainer from '../Note/NoteContainer';
 
 import Edit from '../../components/Edit';
 

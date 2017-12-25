@@ -8,6 +8,7 @@ export const CREATE_NOTES = 'CREATE_NOTES';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 
+// Export Actions
 export function createNote(note, laneId) {
  return {
    type: CREATE_NOTE,
@@ -38,6 +39,14 @@ export function updateNote(note) {
   };
 }
 
+export function updateNoteRequest(note) {
+  return (dispatch) => {
+    return callApi('notes','put', {id: note.id, task: note.task} ).then(noteResp => {
+      dispatch(updateNote(noteResp));
+    });
+  }
+}
+
 export function editNote(noteId) {
   return {
     type: EDIT_NOTE,
@@ -52,4 +61,11 @@ export function deleteNote(noteId, laneId) {
     laneId,
   };
 }
-// Export Actions
+
+export function deleteNoteRequest(noteId, laneId) {
+  return (dispatch => {
+    return callApi(`notes/${noteId}`, 'delete').then(() => {
+      dispatch(deleteNote(noteId, laneId));
+    });
+  })
+}
