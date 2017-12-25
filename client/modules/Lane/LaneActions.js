@@ -35,7 +35,7 @@ export function updateLane(lane) {
   return {
     type: UPDATE_LANE,
     lane,
-  };
+  }
 }
 
 export function updateLaneRequest(lane) {
@@ -56,19 +56,15 @@ export function editLane(laneId) {
 export function deleteLane(laneId) {
   return {
     type: DELETE_LANE,
-    laneId,
+    laneId
   };
 }
 
-export function deleteLaneRequest(lane) {
+export function deleteLaneRequest(laneId) {
   return(dispatch) => {
-    return  callApi(`lanes/${lane.id}`, 'delete')
-      .then( () => {
-        lane.notes.forEach( note => {
-          dispatch(deleteNote( note, lane.id))
-        })
-        dispatch(deleteLane(lane.id));
-      })
+    return callApi(`lanes/${laneId}`, 'delete').then(() => {
+      dispatch(deleteLane(laneId));
+    })
   }
 }
 

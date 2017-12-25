@@ -19,7 +19,7 @@ const Lane = (props) => {
           className={styles.LaneName}
           editing={lane.editing}
           value={lane.name}
-          onValueClick={() => editLane(lane.id)}
+          onValueClick={() => editLane(laneId)}
 
           onUpdate={name => updateLane({ ...lane, name, editing: false })}
         />
