@@ -3,13 +3,17 @@ import Note from './Note';
 
 import Edit from '../../components/Edit';
 
-const Notes = ({ notes, laneId, editNote, updateNote, deleteNote}) => {
+const Notes = ({ notes, laneId, editNote, updateNote, deleteNote, moveWithinLane}) => {
   return (
   <ul className="notes">
     {notes.map((note, id) =>
       <Note
         id={note.id}
         key={note.id}
+        editing={note.editing}
+        moveWithinLane={moveWithinLane}
+        laneId={laneId}
+        _id={note._id}
         editing={note.editing}
       >
         <Edit
@@ -32,11 +36,12 @@ const Notes = ({ notes, laneId, editNote, updateNote, deleteNote}) => {
 
 Notes.propTypes = {
   deleteNote: PropTypes.func,
-  onUpdate: PropTypes.func,
+  updateNote: PropTypes.func,
   laneId: PropTypes.string,
   editNote: PropTypes.func,
   editing: PropTypes.bool,
   notes: PropTypes.array,
+  moveWithinLane: PropTypes.func,
 };
 
 export default Notes;
