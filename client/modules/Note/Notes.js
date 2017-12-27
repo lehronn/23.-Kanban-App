@@ -3,10 +3,10 @@ import Note from './Note';
 
 import Edit from '../../components/Edit';
 
-const Notes = ({ notes, laneId, editNote, onUpdate, deleteNote}) => {
+const Notes = ({ notes, laneId, editNote, updateNote, deleteNote}) => {
   return (
   <ul className="notes">
-    {notes.map((note, id) => 
+    {notes.map((note, id) =>
       <Note
         id={note.id}
         key={note.id}
@@ -16,7 +16,7 @@ const Notes = ({ notes, laneId, editNote, onUpdate, deleteNote}) => {
           editing={note.editing}
           value={note.task}
           onValueClick={() => editNote(note.id)}
-          onUpdate={(task) => onUpdate({
+          onUpdate={(task) => updateNote({
               ...note,
               task,
               editing: false,
