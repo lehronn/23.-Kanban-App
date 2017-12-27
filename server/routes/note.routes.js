@@ -7,10 +7,10 @@ const router = new Router();
 router.route('/notes').post(NoteController.addNote);
 
 // End pointy z zadania
-// Delete a single note by laneId and noteId
-router.route('/notes/:laneId:noteId').delete(NoteController.deleteNote);
+// Delete a single note
+router.route('/notes/:noteId').delete(NoteController.deleteNote);
 
 // Edit a note content by noteId
-router.route('/notes/:noteId').put(NoteController.editNoteContent);
+router.route('/notes').put(NoteController.editNoteContent);
 
 export default router;
