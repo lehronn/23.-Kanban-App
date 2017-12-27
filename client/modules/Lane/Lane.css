@@ -1,4 +1,14 @@
 /* Lane styles */
 .Lane {
-  
+  padding: 10px;
+  background-color: gray;
+  width: 450px;
+  min-height: 300px;
+  border: 1px black solid;
+  margin: 10px;
+}
+
+button {
+  padding: 3px;
+  margin: 5px;
 }
