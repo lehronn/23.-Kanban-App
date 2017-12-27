@@ -14,6 +14,6 @@ router.route('/lanes/:laneId').delete(LaneController.deleteLane);
 
 // Endpointy z zadania
 // Edit a lane name by laneId
-router.route('/lanes/:laneId').post(LaneController.editLaneName);
+router.route('/lanes/:laneId').put(LaneController.editLaneName);
 
 export default router;

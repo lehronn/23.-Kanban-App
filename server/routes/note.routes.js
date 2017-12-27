@@ -8,9 +8,9 @@ router.route('/notes').post(NoteController.addNote);
 
 // End pointy z zadania
 // Delete a single note by laneId and noteId
-router.route('/notes/:laneId:noteID').delete(NoteController.deleteNote);
+router.route('/notes/:laneId:noteId').delete(NoteController.deleteNote);
 
 // Edit a note content by noteId
-router.route('/notes/:noteId').post(NoteController.editNoteContent);
+router.route('/notes/:noteId').put(NoteController.editNoteContent);
 
 export default router;
