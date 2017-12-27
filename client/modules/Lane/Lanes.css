@@ -1,8 +1,4 @@
-/* Kanban styles */
-.KanbanContainer {
-}
-
-.FlexContainer {
+div.lanes {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;

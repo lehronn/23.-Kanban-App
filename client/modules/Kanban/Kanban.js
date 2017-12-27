@@ -11,14 +11,16 @@ import { compose } from 'redux';
 import { createLaneRequest } from '../Lane/LaneActions';
 
 const Kanban = (props) => (
-  <div>
+  <div className={styles.KanbanContainer}>
     <button
       className={styles.AddLane}
       onClick={() => props.createLane({
         name: 'New lane',
       })}
     >Add lane</button>
-    <Lanes lanes={props.lanes} />
+    <div className={styles.FlexContainer}>
+      <Lanes lanes={props.lanes} />
+    </div>
   </div>
 );
 

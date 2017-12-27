@@ -7,8 +7,4 @@
   border: 1px black solid;
   margin: 2px;
   list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
 }
