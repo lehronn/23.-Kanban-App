@@ -1,5 +1,6 @@
 import Lane from '../models/lane';
 import uuid from 'uuid';
+import Note from '../models/note'
 
 export function addLane(req, res) {
   if (!req.body.name) {

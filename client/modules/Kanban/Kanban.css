@@ -4,6 +4,6 @@
 
 .FlexContainer {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row;
   justify-content: space-around;
 }
