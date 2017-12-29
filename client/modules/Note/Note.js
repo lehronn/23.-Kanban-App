@@ -16,7 +16,6 @@ class Note extends React.Component {
 
       // jeśli edytujemy to przepuszczamy komponent (uniemożliwiamy tym samym przeciąganie komponentu edytowanego)
       const dragSource = editing ? a => a : connectDragSource;
-
       return dragSource(connectDropTarget(
         <li
           className={styles.Note}
@@ -35,20 +34,26 @@ const noteSource = {
     return {
       id: props.id,
       laneId: props.laneId,
+      _id: props._id,
     };
   },
   isDragging(props, monitor) {
     return props.id === monitor.getItem().id;
+  },
+  endDrag(props, monitor, component) {
+
   }
+
 };
 
 const noteTarget = {
+
   hover(targetProps, monitor) {
     const sourceProps = monitor.getItem();
-
-    if(targetProps.id !== sourceProps.id) {
-      targetProps.moveWithinLane(targetProps.laneId, targetProps.id, sourceProps.Id);
+    if(targetProps.id !== sourceProps.id && targetProps.laneId === sourceProps.laneId  ) {
+      targetProps.moveWithinLane(targetProps.laneId, targetProps.id, sourceProps.id);
     }
+
   }
 };
 

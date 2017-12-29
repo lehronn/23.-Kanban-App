@@ -5,7 +5,6 @@ import { editNote, updateNoteRequest, deleteNoteRequest, moveWithinLane } from '
 
 const mapDispatchToProps = {
   editNote,
-  onValueClick: editNote,
   updateNote: updateNoteRequest,
   deleteNote: deleteNoteRequest,
   moveWithinLane,
