@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import Lane from './Lane';
+import * as laneActions from './LaneActions';
 import { compose } from 'redux';
 import { DropTarget } from 'react-dnd';
 import ItemTypes from '../Kanban/itemTypes';
 
-import { deleteLane, updateLane, editLane, updateLaneRequest, deleteLaneRequest } from './LaneActions';
-import { moveBetweenLanes } from './Lane';
-import { createNoteRequest } from '../Note/NoteActions';
+import { updateLaneRequest, deleteLaneRequest, moveBetweenLanes, removeFromLane, pushToLane, changeLanesRequest } from "./LaneActions";
+import { createNote, createNoteRequest } from '../Note/NoteActions';
 
 
 // podpięcie wszystkich kreatorów akcji do propsów komponentu Lane.
@@ -14,8 +14,6 @@ import { createNoteRequest } from '../Note/NoteActions';
 // akcję tworzenia notek. Można to zrobić w bardzo prosty sposób,
 // wykorzystując tzw. wildcards (znak *), co przedstawia poniższy
 // kod:
-import * as laneActions from './LaneActions';
-import { createNote } from '../Note/NoteActions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -27,28 +25,31 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   ...laneActions,
-  editLane,
   updateLane: updateLaneRequest,
   deleteLane: deleteLaneRequest,
   addNote: createNoteRequest,
   moveBetweenLanes,
+  removeFromLane,
+  changeLanesRequest,
+  pushToLane,
 };
 
 const noteTarget = {
- hover(targetProps, monitor) {
-   const sourceProps = monitor.getItem();
-   const { id: noteId, laneId: sourceLaneId } = sourceProps;
-
-   if (!targetProps.lane.notes.length) {
-     targetProps.moveBetweenLanes(
-       targetProps.lane.id,
-       noteId,
-       sourceLaneId,
-     );
-   }
- },
-
-};
+  drop(targetProps, monitor) {
+    const sourceProps = monitor.getItem();
+    const { id: noteId, laneId: sourceLaneId, _id: note_id} = sourceProps;
+    //Move and drop a note from one lane (source) to another lane (target)
+    if (targetProps.lane.id !== sourceLaneId) {
+      const newTargetNotes = targetProps.laneNotes.map(note => note._id)
+      newTargetNotes.push(note_id);
+      targetProps.changeLanesRequest(sourceLaneId, targetProps.lane.id, noteId, newTargetNotes);
+    //Drop a note inside a lane (change position of note)
+    } else {
+      const notes = targetProps.laneNotes.map(note => note._id)
+      callApi('lanes','put', {id: sourceLaneId, notes: notes})
+    }
+  },
+}
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
