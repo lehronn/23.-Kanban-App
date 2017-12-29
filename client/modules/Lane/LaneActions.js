@@ -63,11 +63,15 @@ export function deleteLane(laneId) {
   };
 }
 
-export function deleteLaneRequest(laneId) {
+export function deleteLaneRequest(lane) {
   return(dispatch) => {
-    return callApi(`lanes/${laneId}`, 'delete').then(() => {
-      dispatch(deleteLane(laneId));
-    })
+    Promise.all(lane.notes.map(noteId => callApi(`notes/${noteId}`, 'delete')))
+    .then(() => {
+      callApi(`lanes/${lane.id}`, 'delete')
+        .then( () => {
+          dispatch(deleteLane(lane.id));
+        })
+    } )
   }
 }
 

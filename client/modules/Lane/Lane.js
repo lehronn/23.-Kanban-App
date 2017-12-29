@@ -24,7 +24,7 @@ class Lane extends React.Component {
             <button onClick={() => addNote({task: 'New Note'}, laneId)}>Add Note</button>
           </div>
           <div className={styles.LaneDelete}>
-            <button onClick={() => deleteLane(laneId)}>Remove lane</button>
+            <button onClick={() => deleteLane(lane)}>Remove lane</button>
           </div>
         </div>
         <NotesContainer
