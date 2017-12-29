@@ -63,15 +63,11 @@ export function deleteLane(laneId) {
   };
 }
 
-export function deleteLaneRequest(lane) {
+export function deleteLaneRequest(laneId) {
   return(dispatch) => {
-    Promise.all(lane.notes.map(noteId => callApi(`notes/${noteId}`, 'delete')))
-    .then(() => {
-      callApi(`lanes/${lane.id}`, 'delete')
-        .then( () => {
-          dispatch(deleteLane(lane.id));
-        })
-    } )
+    return callApi(`lanes/${laneId}`, 'delete').then(() => {
+      dispatch(deleteLane(laneId));
+    })
   }
 }
 
@@ -82,16 +78,15 @@ export function createLanes(lanesData) {
   };
 }
 
-export function fetchLanes() {
+export function  fetchLanes() {
   return (dispatch) => {
     return callApi('lanes').then(res => {
       const normalized = normalize(res.lanes, lanes);
-      const { lanes: normalizedLanes, notes } = normalized.entities;
-
-     dispatch(createLanes(normalizedLanes));
-     dispatch(createNotes(notes));
-    });
-  };
+      const {lanes: normalizedLanes, notes} = normalized.entities;
+      dispatch(createLanes(normalizedLanes));
+      dispatch(createNotes(notes))
+    })
+  }
 }
 
 export function moveBetweenLanes(targetLaneId, noteId, sourceLaneId) {
@@ -100,7 +95,15 @@ export function moveBetweenLanes(targetLaneId, noteId, sourceLaneId) {
     targetLaneId,
     noteId,
     sourceLaneId,
-  };
+  }
+}
+
+export function removeFromLane(sourceLaneId, noteId) {
+  return {
+    type: REMOVE_FROM_LANE,
+    sourceLaneId,
+    noteId,
+  }
 }
 
 export function pushToLane(targetLaneId, noteId) {
@@ -111,19 +114,13 @@ export function pushToLane(targetLaneId, noteId) {
   }
 }
 
-export function changeLanesRequest(sourceLaneId, targetLaneId, noteId, newNotes) {
+export function changeLanesRequest(sourceLaneId, targetLaneId, noteId) {
   return (dispatch) => {
-    return callApi(`lanes`)
+    return callApi(`notes/${noteId}`, 'delete')
       .then((res) => {
-        const newSourceLane = res.lanes.find(lane => lane.id === sourceLaneId);
-        const newSourceNotes= newSourceLane.notes.filter(note => note.id !== noteId).map(note => note._id)
-        callApi('lanes','put', {id: sourceLaneId, notes: newSourceNotes})
+        console.log(res)
+        callApi('notes', 'post', { laneId: targetLaneId, note: res })
       })
-
-      .then((res) => {
-        callApi('lanes','put', {id: targetLaneId, notes: newNotes})
-      })
-
       .then(() => {
         dispatch(removeFromLane(
           sourceLaneId,
@@ -135,16 +132,5 @@ export function changeLanesRequest(sourceLaneId, targetLaneId, noteId, newNotes)
         ));
       }
     )
-    .catch(err => {
-      console.log(err);
-    })
-  }
-}
-
-export function removeFromLane(sourceLaneId, noteId) {
-  return {
-    type: REMOVE_FROM_LANE,
-    sourceLaneId,
-    noteId,
   }
 }
