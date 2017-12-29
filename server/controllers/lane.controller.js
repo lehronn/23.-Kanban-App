@@ -33,6 +33,7 @@ export function getLanes(req, res) {
 // this lane is in server/models/lane.js
 // czyli hak usuwa notatki z usuwanej właśnie linii
 export function deleteLane(req, res) {
+  console.log(req.params.laneId);
   Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
     if (err) {
       res.status(500).send(err);

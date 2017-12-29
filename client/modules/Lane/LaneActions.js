@@ -3,7 +3,7 @@ import callApi from '../../util/apiCaller';
 import { lanes } from '../../util/schema';
 import { normalize } from 'normalizr';
 
-import { createNotesRequest, createNotes, deleteNote } from "../Note/NoteActions";
+import { createNotesRequest, createNotes, deleteNoteRequest } from "../Note/NoteActions";
 
 // Export Constants
 export const CREATE_LANE = 'CREATE_LANE';
@@ -63,13 +63,13 @@ export function deleteLane(laneId) {
 
 export function deleteLaneRequest(lane) {
   return(dispatch) => {
-    return  callApi(`lanes/${lane.id}`, 'delete')
-      .then( () => {
-        lane.notes.forEach( note => {
-          dispatch(deleteNote( note, lane.id))
+    Promise.all(lane.notes.map(noteId => callApi(`notes/${noteId}`, 'delete')))
+    .then(() => {
+      callApi(`lanes/${lane.id}`, 'delete')
+        .then( () => {
+          dispatch(deleteLane(lane.id));
         })
-        dispatch(deleteLane(lane.id));
-      })
+    } )
   }
 }
 

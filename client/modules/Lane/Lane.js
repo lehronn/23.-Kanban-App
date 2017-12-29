@@ -24,7 +24,7 @@ const Lane = (props) => {
           onUpdate={name => updateLane({ ...lane, name, editing: false })}
         />
         <div className={styles.LaneDelete}>
-          <button onClick={() => deleteLane(laneId)}>Remove Lane</button>
+          <button onClick={() => deleteLane(lane)}>Remove Lane</button>
         </div>
       </div>
       <NotesContainer
@@ -34,17 +34,6 @@ const Lane = (props) => {
     </div>
   );
 };
-
-export const MOVE_BETWEEN_LANES = 'MOVE_BETWEEN_LANES';
-// Export Actions
-export function moveBetweenLanes(targetLaneId, noteId, sourceLaneId) {
-  return {
-    type: MOVE_BETWEEN_LANES,
-    targetLaneId,
-    noteId,
-    sourceLaneId,
-  };
-}
 
 Lane.propTypes = {
   lane: PropTypes.object,
