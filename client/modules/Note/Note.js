@@ -30,7 +30,6 @@ class Note extends React.Component {
   }
 }
 
-
 const noteSource = {
   beginDrag(props) {
     return {
