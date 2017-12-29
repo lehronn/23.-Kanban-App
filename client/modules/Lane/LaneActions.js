@@ -113,8 +113,8 @@ export function pushToLane(targetLaneId, noteId) {
 
 export function changeLanesRequest(sourceLaneId, targetLaneId, noteId, newNotes) {
   return (dispatch) => {
+    console.log(noteId); console.log("< changeLanesRequest");
     return callApi(`lanes`)
-
       .then((res) => {
         const newSourceLane = res.lanes.find(lane => lane.id === sourceLaneId);
         const newSourceNotes= newSourceLane.notes.filter(note => note.id !== noteId).map(note => note._id)
@@ -134,6 +134,7 @@ export function changeLanesRequest(sourceLaneId, targetLaneId, noteId, newNotes)
           targetLaneId,
           noteId,
         ));
+        console.log(noteId); console.log('< PUSH_TO_LANE');
       }
     )
     .catch(err => {
