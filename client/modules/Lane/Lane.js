@@ -6,10 +6,10 @@ import Edit from '../../components/Edit';
 import styles from './Lane.css';
 
 const Lane = (props) => {
-  const { lane, laneNotes, updateLane, addNote, deleteLane, editLane } = props;
+  const { lane, laneNotes, updateLane, addNote, deleteLane, editLane, connectDropTarget } = props;
   const laneId = lane.id;
 
-  return (
+  return connectDropTarget(
     <div className={styles.Lane}>
       <div className={styles.LaneHeader}>
         <div className={styles.LaneAddNote}>
@@ -34,6 +34,17 @@ const Lane = (props) => {
     </div>
   );
 };
+
+export const MOVE_BETWEEN_LANES = 'MOVE_BETWEEN_LANES';
+// Export Actions
+export function moveBetweenLanes(targetLaneId, noteId, sourceLaneId) {
+  return {
+    type: MOVE_BETWEEN_LANES,
+    targetLaneId,
+    noteId,
+    sourceLaneId,
+  };
+}
 
 Lane.propTypes = {
   lane: PropTypes.object,
