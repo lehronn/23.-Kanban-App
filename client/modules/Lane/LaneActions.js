@@ -3,7 +3,7 @@ import callApi from '../../util/apiCaller';
 import { lanes } from '../../util/schema';
 import { normalize } from 'normalizr';
 
-import { createNotesRequest, createNotes, deleteNoteRequest } from "../Note/NoteActions";
+import { createNotesRequest, createNotes, deleteNote } from "../Note/NoteActions";
 
 // Export Constants
 export const CREATE_LANE = 'CREATE_LANE';
